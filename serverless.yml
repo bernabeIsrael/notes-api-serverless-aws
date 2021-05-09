@@ -19,7 +19,6 @@ provider:
 
   lambdaHashingVersion: 20201221
 
-
   # These environment variables are made available to our functions
   # under process.env.
   environment:
@@ -28,7 +27,7 @@ provider:
   # 'iamRoleStatements' defines the permission policy for the Lambda function.
   # In this case Lambda functions are granted with permissions to access DynamoDB.
   iam:
-    role: 
+    role:
       statements:
         - Effect: Allow
           Action:
@@ -70,7 +69,7 @@ functions:
       - http:
           path: notes
           method: get
-  
+
   update:
     # Defines an HTTP API endpoint that calls the main function in update.js
     # - path: url path is /notes/{id}
@@ -80,3 +79,13 @@ functions:
       - http:
           path: notes/{id}
           method: put
+
+  delete:
+    # Defines an HTTP API endpoint that calls the main function in delete.js
+    # - path: url path is /notes/{id}
+    # - method: DELETE request
+    handler: delete.main
+    events:
+      - http:
+          path: notes/{id}
+          method: delete
